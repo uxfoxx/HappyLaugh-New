@@ -1,0 +1,6 @@
+deployment:
+  tasks:
+    - echo "Starting deployment..."
+    - export DEPLOYPATH=/home/your_cpanel_username/public_html
+    - /bin/rsync -av --delete --exclude='.git' --exclude='.cpanel.yml' ./ $DEPLOYPATH
+    - echo "Deployment completed successfully."
