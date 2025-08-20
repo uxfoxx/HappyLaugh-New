@@ -18,7 +18,7 @@
 			  $(this).val('');
 		  });
 	  });*/
-
+ 
 	//Datepicker V2 - https://easepick.com/
 	$(function () {
 	/* Booked Dates */
