@@ -337,7 +337,7 @@
 	    var progress = pathLength - (scroll * pathLength / height);
 	    progressPath.style.strokeDashoffset = progress;
 	}
-	updateProgress();
+	updateProgress(); 
 	$(window).scroll(updateProgress);
 	var offset = 50;
 	var duration = 550;
