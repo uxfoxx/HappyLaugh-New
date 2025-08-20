@@ -16,9 +16,21 @@ import NotFound from './pages/NotFound';
 
 function App() {
   useEffect(() => {
-    // Initialize jQuery plugins after component mount
+    // Initialize all jQuery plugins and functionality
     const initializePlugins = () => {
       if (window.jQuery) {
+        const $ = window.jQuery;
+        
+        // Initialize opacity masks
+        $('.opacity-mask').each(function(){
+          $(this).css('background-color', $(this).attr('data-opacity-mask'));
+        });
+
+        // Initialize data backgrounds
+        $('.background-image').each(function(){
+          $(this).css('background-image', $(this).attr('data-background'));
+        });
+
         // Initialize scroll animations
         if (window.scrollCue) {
           window.scrollCue.init({
@@ -31,11 +43,11 @@ function App() {
           window.jarallax(document.querySelectorAll('[data-jarallax]'));
         }
 
-        // Initialize other plugins
-        window.jQuery('.custom_select select').niceSelect();
+        // Initialize nice select
+        $('.custom_select select').niceSelect();
         
-        // Initialize owl carousel
-        window.jQuery('.carousel_item_centered').owlCarousel({    
+        // Initialize all owl carousels
+        $('.carousel_item_centered').owlCarousel({    
           loop: true,
           margin: 5,
           nav: true,
@@ -49,7 +61,7 @@ function App() {
           }
         });
 
-        window.jQuery('.carousel_testimonials').owlCarousel({
+        $('.carousel_testimonials').owlCarousel({
           items: 1,
           loop: true,
           autoplay: false,
@@ -65,11 +77,60 @@ function App() {
             1000: { items: 1, nav: false }
           }
         });
+
+        // Initialize other carousels
+        $('.carousel_item_3').owlCarousel({    
+          loop: false,
+          margin: 15,
+          nav: true,
+          dots: false,
+          center: false,
+          navText: ["<i class='bi bi-arrow-left-short'></i>","<i class='bi bi-arrow-right-short'></i>"],
+          responsive: {
+            0: { items: 1 },
+            600: { items: 2 },
+            1000: { items: 3 }
+          }
+        });
+
+        // Initialize header functionality
+        if ($("header.reveal_header").length) {
+          $("header.reveal_header").headroom({
+            "offset": 50,
+            "tolerance": 5,
+            "classes": {
+              "initial": "animated",
+              "pinned": "slideDown",
+              "unpinned": "slideUp"
+            }
+          });
+        }
+
+        // Footer reveal for larger screens
+        if ($(window).width() >= 1024) {
+          $('footer.revealed').footerReveal({
+            shadow: false,
+            opacity: 0.6,
+            zIndex: 1
+          });
+        }
       }
     };
 
-    // Delay initialization to ensure DOM is ready
-    setTimeout(initializePlugins, 100);
+    // Initialize immediately and on route changes
+    initializePlugins();
+    
+    // Re-initialize on route changes
+    const handleRouteChange = () => {
+      setTimeout(initializePlugins, 100);
+    };
+    
+    // Listen for route changes
+    window.addEventListener('popstate', handleRouteChange);
+    
+    return () => {
+      window.removeEventListener('popstate', handleRouteChange);
+    };
   }, []);
 
   return (
