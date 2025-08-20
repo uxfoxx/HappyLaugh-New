@@ -1,32 +1,46 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
+import './index.css'
 
-// Add error handling and debugging
-console.log('main.jsx loaded');
-console.log('React:', typeof React !== 'undefined');
-console.log('ReactDOM:', typeof createRoot !== 'undefined');
+console.log('Starting React application...')
 
-const rootElement = document.getElementById('root');
-console.log('Root element found:', rootElement !== null);
+// Ensure DOM is ready
+const initApp = () => {
+  const rootElement = document.getElementById('root')
+  
+  if (!rootElement) {
+    console.error('Root element not found!')
+    return
+  }
 
-if (rootElement) {
+  console.log('Root element found, creating React root...')
+  
   try {
-    const root = createRoot(rootElement);
-    console.log('Root created successfully');
+    const root = ReactDOM.createRoot(rootElement)
+    console.log('React root created successfully')
     
     root.render(
-      <StrictMode>
+      <React.StrictMode>
         <App />
-      </StrictMode>
-    );
-    console.log('App rendered successfully');
+      </React.StrictMode>
+    )
+    console.log('App rendered successfully')
   } catch (error) {
-    console.error('Error rendering app:', error);
-    // Fallback content
-    rootElement.innerHTML = '<div style="padding: 20px; text-align: center;"><h1>Loading Error</h1><p>Please check the console for details.</p></div>';
+    console.error('Error rendering app:', error)
+    rootElement.innerHTML = `
+      <div style="padding: 20px; text-align: center; font-family: Arial, sans-serif;">
+        <h1>Application Error</h1>
+        <p>There was an error loading the application.</p>
+        <p style="color: red; font-family: monospace;">${error.message}</p>
+      </div>
+    `
   }
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp)
 } else {
-  console.error('Root element not found!');
+  initApp()
 }

@@ -1,150 +1,94 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect } from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Preloader from './components/Preloader';
-import ProgressWrap from './components/ProgressWrap';
-import Home from './pages/Home';
-import About from './pages/About';
-import RoomList from './pages/RoomList';
-import Contacts from './pages/Contacts';
-import DeluxeDoubleRoom from './pages/DeluxeDoubleRoom';
-import DeluxeFamilyRoom from './pages/DeluxeFamilyRoom';
-import DeluxeSingleRoom from './pages/DeluxeSingleRoom';
-import MixedDormitory from './pages/MixedDormitory';
-import NotFound from './pages/NotFound';
+import React, { useEffect, useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Preloader from './components/Preloader'
+import ProgressWrap from './components/ProgressWrap'
+import Home from './pages/Home'
+import About from './pages/About'
+import RoomList from './pages/RoomList'
+import Contacts from './pages/Contacts'
+import DeluxeDoubleRoom from './pages/DeluxeDoubleRoom'
+import DeluxeFamilyRoom from './pages/DeluxeFamilyRoom'
+import DeluxeSingleRoom from './pages/DeluxeSingleRoom'
+import MixedDormitory from './pages/MixedDormitory'
+import NotFound from './pages/NotFound'
 
 function App() {
-  console.log('App component rendering');
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    console.log('App useEffect running');
+    console.log('App component mounted')
     
-    // Initialize all jQuery plugins and functionality
+    // Initialize jQuery plugins after a short delay
     const initializePlugins = () => {
-      console.log('Initializing plugins...');
+      console.log('Initializing plugins...')
       
-      if (window.jQuery) {
-        const $ = window.jQuery;
-        console.log('jQuery available, initializing...');
+      if (typeof window.jQuery !== 'undefined') {
+        const $ = window.jQuery
+        console.log('jQuery is available')
         
-        // Initialize opacity masks
-        $('.opacity-mask').each(function(){
-          $(this).css('background-color', $(this).attr('data-opacity-mask'));
-        });
+        try {
+          // Initialize opacity masks
+          $('.opacity-mask').each(function(){
+            $(this).css('background-color', $(this).attr('data-opacity-mask'))
+          })
 
-        // Initialize data backgrounds
-        $('.background-image').each(function(){
-          $(this).css('background-image', $(this).attr('data-background'));
-        });
+          // Initialize data backgrounds
+          $('.background-image').each(function(){
+            $(this).css('background-image', $(this).attr('data-background'))
+          })
 
-        // Initialize scroll animations
-        if (window.scrollCue) {
-          window.scrollCue.init({
-            percentage: 0.85
-          });
-        }
-
-        // Initialize jarallax
-        if (window.jarallax) {
-          window.jarallax(document.querySelectorAll('[data-jarallax]'));
-        }
-
-        // Initialize nice select
-        $('.custom_select select').niceSelect();
-        
-        // Initialize all owl carousels
-        $('.carousel_item_centered').owlCarousel({    
-          loop: true,
-          margin: 5,
-          nav: true,
-          dots: false,
-          center: true,
-          navText: ["<i class='bi bi-arrow-left-short'></i>","<i class='bi bi-arrow-right-short'></i>"],
-          responsive: {
-            0: { items: 1 },
-            600: { items: 2 },
-            1000: { items: 2 }
+          // Initialize scroll animations
+          if (window.scrollCue) {
+            window.scrollCue.init({
+              percentage: 0.85
+            })
+            console.log('ScrollCue initialized')
           }
-        });
 
-        $('.carousel_testimonials').owlCarousel({
-          items: 1,
-          loop: true,
-          autoplay: false,
-          animateIn: 'flipInX',
-          margin: 40,
-          stagePadding: 30,
-          smartSpeed: 300,
-          autoHeight: true,
-          dots: true,
-          responsiveClass: true,
-          responsive: {
-            600: { items: 1 },
-            1000: { items: 1, nav: false }
+          // Initialize jarallax
+          if (window.jarallax) {
+            window.jarallax(document.querySelectorAll('[data-jarallax]'))
+            console.log('Jarallax initialized')
           }
-        });
 
-        // Initialize other carousels
-        $('.carousel_item_3').owlCarousel({    
-          loop: false,
-          margin: 15,
-          nav: true,
-          dots: false,
-          center: false,
-          navText: ["<i class='bi bi-arrow-left-short'></i>","<i class='bi bi-arrow-right-short'></i>"],
-          responsive: {
-            0: { items: 1 },
-            600: { items: 2 },
-            1000: { items: 3 }
-          }
-        });
-
-        // Initialize header functionality
-        if ($("header.reveal_header").length) {
-          $("header.reveal_header").headroom({
-            "offset": 50,
-            "tolerance": 5,
-            "classes": {
-              "initial": "animated",
-              "pinned": "slideDown",
-              "unpinned": "slideUp"
-            }
-          });
+          console.log('All plugins initialized successfully')
+        } catch (error) {
+          console.error('Error initializing plugins:', error)
         }
-
-        // Footer reveal for larger screens
-        if ($(window).width() >= 1024) {
-          $('footer.revealed').footerReveal({
-            shadow: false,
-            opacity: 0.6,
-            zIndex: 1
-          });
-        }
-        
-        console.log('Plugins initialized successfully');
       } else {
-        console.error('jQuery not available!');
+        console.warn('jQuery not available yet, retrying...')
+        setTimeout(initializePlugins, 500)
       }
-    };
+    }
 
-    // Initialize immediately and on route changes
-    setTimeout(initializePlugins, 100);
-    
-    // Re-initialize on route changes
-    const handleRouteChange = () => {
-      setTimeout(initializePlugins, 100);
-    };
-    
-    // Listen for route changes
-    window.addEventListener('popstate', handleRouteChange);
-    
-    return () => {
-      window.removeEventListener('popstate', handleRouteChange);
-    };
-  }, []);
+    // Set loading to false after a brief moment
+    setTimeout(() => {
+      setIsLoading(false)
+      console.log('App loading complete')
+    }, 100)
 
-  console.log('App component about to return JSX');
+    // Initialize plugins after DOM is ready
+    setTimeout(initializePlugins, 200)
+  }, [])
+
+  if (isLoading) {
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        fontSize: '18px',
+        fontFamily: 'Arial, sans-serif'
+      }}>
+        Loading Ceylon Happy Laugh...
+      </div>
+    )
+  }
+
+  console.log('App rendering main content')
 
   return (
     <Router>
@@ -166,7 +110,7 @@ function App() {
         <ProgressWrap />
       </div>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App

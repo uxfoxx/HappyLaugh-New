@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ceylon Happy Laugh</title>
+    <title>Ceylon Happy Laugh - Your Perfect Escape in Ella</title>
     
     <!-- Favicons-->
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
@@ -25,25 +25,24 @@
     <link href="/css/custom.css" rel="stylesheet">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div class="loading-fallback">
+        <div>Loading Ceylon Happy Laugh...</div>
+      </div>
+    </div>
     
     <!-- COMMON SCRIPTS -->
     <script src="/js/jquery-3.7.1.min.js"></script>
     <script src="/js/common_scripts.js"></script>
-    <script src="/js/common_functions.js"></script>
     <script src="/js/jarallax.min.js"></script>
     <script src="/js/scrollCue.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
     <script src="/js/fslightbox.js"></script>
     <script>
-      // Ensure jQuery and plugins are available globally
+      // Ensure jQuery is available globally
       window.$ = window.jQuery;
-      
-      // Initialize basic functionality
-      document.addEventListener('DOMContentLoaded', function() {
-        console.log('DOM loaded, jQuery available:', typeof window.jQuery !== 'undefined');
-        console.log('React root element found:', document.getElementById('root') !== null);
-      });
+      console.log('jQuery loaded:', typeof window.jQuery !== 'undefined');
+      console.log('Scripts loaded, waiting for React...');
     </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
