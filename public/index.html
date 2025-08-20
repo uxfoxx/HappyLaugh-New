@@ -35,6 +35,16 @@
     <script src="/js/scrollCue.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
     <script src="/js/fslightbox.js"></script>
+    <script>
+      // Ensure jQuery and plugins are available globally
+      window.$ = window.jQuery;
+      
+      // Initialize basic functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded, jQuery available:', typeof window.jQuery !== 'undefined');
+        console.log('React root element found:', document.getElementById('root') !== null);
+      });
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

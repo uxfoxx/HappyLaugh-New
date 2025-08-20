@@ -2,13 +2,19 @@ import { Link, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const Header = () => {
+  console.log('Header component rendering');
   const location = useLocation();
 
   useEffect(() => {
+    console.log('Header useEffect running');
+    
     // Initialize header functionality after component mount
     const initializeHeader = () => {
+      console.log('Initializing header...');
+      
       if (window.jQuery) {
         const $ = window.jQuery;
+        console.log('jQuery available in header');
         
         // Sticky Header
         $(window).on('scroll', function () {
@@ -30,11 +36,17 @@ const Header = () => {
         $('a.show-submenu').on("click", function () {
           $(this).toggleClass("show_normal");
         });
+        
+        console.log('Header initialized successfully');
+      } else {
+        console.error('jQuery not available in header');
       }
     };
 
     setTimeout(initializeHeader, 100);
   }, []);
+
+  console.log('Header about to return JSX');
 
   return (
     <header className="fixed_header menu_v4 submenu_version">

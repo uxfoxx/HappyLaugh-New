@@ -2,20 +2,29 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
+  console.log('Home component rendering');
+
   useEffect(() => {
+    console.log('Home useEffect running');
+    
     // Initialize page-specific functionality
     const initializePage = () => {
+      console.log('Initializing home page...');
+      
       if (window.jQuery) {
         const $ = window.jQuery;
+        console.log('jQuery available in home page');
         
         // Initialize jarallax for this page
         if (window.jarallax) {
           window.jarallax(document.querySelectorAll('[data-jarallax]'));
+          console.log('Jarallax initialized');
         }
 
         // Initialize scroll animations
         if (window.scrollCue) {
           window.scrollCue.update();
+          console.log('ScrollCue updated');
         }
 
         // Initialize owl carousel for testimonials
@@ -35,6 +44,7 @@ const Home = () => {
             1000: { items: 1, nav: false }
           }
         });
+        console.log('Owl carousel initialized');
 
         // Video Play on scroll
         var $win = $(window);
@@ -83,11 +93,17 @@ const Home = () => {
             window.location.hash = target;
           });
         });
+        
+        console.log('Home page initialized successfully');
+      } else {
+        console.error('jQuery not available in home page');
       }
     };
 
     setTimeout(initializePage, 100);
   }, []);
+
+  console.log('Home about to return JSX');
 
   return (
     <main>

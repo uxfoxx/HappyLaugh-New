@@ -15,11 +15,18 @@ import MixedDormitory from './pages/MixedDormitory';
 import NotFound from './pages/NotFound';
 
 function App() {
+  console.log('App component rendering');
+
   useEffect(() => {
+    console.log('App useEffect running');
+    
     // Initialize all jQuery plugins and functionality
     const initializePlugins = () => {
+      console.log('Initializing plugins...');
+      
       if (window.jQuery) {
         const $ = window.jQuery;
+        console.log('jQuery available, initializing...');
         
         // Initialize opacity masks
         $('.opacity-mask').each(function(){
@@ -114,11 +121,15 @@ function App() {
             zIndex: 1
           });
         }
+        
+        console.log('Plugins initialized successfully');
+      } else {
+        console.error('jQuery not available!');
       }
     };
 
     // Initialize immediately and on route changes
-    initializePlugins();
+    setTimeout(initializePlugins, 100);
     
     // Re-initialize on route changes
     const handleRouteChange = () => {
@@ -132,6 +143,8 @@ function App() {
       window.removeEventListener('popstate', handleRouteChange);
     };
   }, []);
+
+  console.log('App component about to return JSX');
 
   return (
     <Router>

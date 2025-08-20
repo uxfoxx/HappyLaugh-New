@@ -4,6 +4,7 @@
 /* Ensure React root takes full height */
 #root {
   min-height: 100vh;
+  width: 100%;
 }
 
 /* Fix for React Router navigation */
@@ -11,8 +12,27 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 main {
   flex: 1;
+}
+
+/* Fallback styles in case CSS files don't load */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', Helvetica, sans-serif;
+  background-color: #faf8f5;
+}
+
+/* Loading indicator */
+.loading-fallback {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 18px;
+  color: #333;
 }
