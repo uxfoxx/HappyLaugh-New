@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -15,80 +15,53 @@ import MixedDormitory from './pages/MixedDormitory'
 import NotFound from './pages/NotFound'
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true)
+  console.log('App component rendering...')
 
   useEffect(() => {
-    console.log('App component mounted')
+    console.log('App useEffect running...')
     
-    // Initialize jQuery plugins after a short delay
+    // Initialize plugins after DOM is ready
     const initializePlugins = () => {
       console.log('Initializing plugins...')
       
-      if (typeof window.jQuery !== 'undefined') {
+      if (window.jQuery) {
         const $ = window.jQuery
-        console.log('jQuery is available')
+        console.log('jQuery available, initializing...')
         
-        try {
-          // Initialize opacity masks
-          $('.opacity-mask').each(function(){
-            $(this).css('background-color', $(this).attr('data-opacity-mask'))
+        // Initialize opacity masks
+        $('.opacity-mask').each(function(){
+          $(this).css('background-color', $(this).attr('data-opacity-mask'))
+        })
+
+        // Initialize data backgrounds
+        $('.background-image').each(function(){
+          $(this).css('background-image', $(this).attr('data-background'))
+        })
+
+        // Initialize scroll animations
+        if (window.scrollCue) {
+          window.scrollCue.init({
+            percentage: 0.85
           })
-
-          // Initialize data backgrounds
-          $('.background-image').each(function(){
-            $(this).css('background-image', $(this).attr('data-background'))
-          })
-
-          // Initialize scroll animations
-          if (window.scrollCue) {
-            window.scrollCue.init({
-              percentage: 0.85
-            })
-            console.log('ScrollCue initialized')
-          }
-
-          // Initialize jarallax
-          if (window.jarallax) {
-            window.jarallax(document.querySelectorAll('[data-jarallax]'))
-            console.log('Jarallax initialized')
-          }
-
-          console.log('All plugins initialized successfully')
-        } catch (error) {
-          console.error('Error initializing plugins:', error)
+          console.log('ScrollCue initialized')
         }
+
+        // Initialize jarallax
+        if (window.jarallax) {
+          window.jarallax(document.querySelectorAll('[data-jarallax]'))
+          console.log('Jarallax initialized')
+        }
+        
+        console.log('All plugins initialized')
       } else {
-        console.warn('jQuery not available yet, retrying...')
+        console.log('jQuery not ready, retrying...')
         setTimeout(initializePlugins, 500)
       }
     }
 
-    // Set loading to false after a brief moment
-    setTimeout(() => {
-      setIsLoading(false)
-      console.log('App loading complete')
-    }, 100)
-
-    // Initialize plugins after DOM is ready
-    setTimeout(initializePlugins, 200)
+    // Wait for all scripts to load
+    setTimeout(initializePlugins, 1000)
   }, [])
-
-  if (isLoading) {
-    return (
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh',
-        fontSize: '18px',
-        fontFamily: 'Arial, sans-serif'
-      }}>
-        Loading Ceylon Happy Laugh...
-      </div>
-    )
-  }
-
-  console.log('App rendering main content')
 
   return (
     <Router>

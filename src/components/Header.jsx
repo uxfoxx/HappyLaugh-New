@@ -5,43 +5,37 @@ const Header = () => {
   const location = useLocation()
 
   useEffect(() => {
-    console.log('Header component mounted')
+    console.log('Header mounted')
     
     const initializeHeader = () => {
-      if (typeof window.jQuery !== 'undefined') {
+      if (window.jQuery) {
         const $ = window.jQuery
-        console.log('Initializing header with jQuery')
         
-        try {
-          // Sticky Header
-          $(window).on('scroll', function () {
-            if ($(this).scrollTop() > 1) {
-              $('.fixed_header').addClass("sticky")
-            } else {
-              $('.fixed_header').removeClass("sticky")
-            }
-          })
-          $(window).scroll()
+        // Sticky Header
+        $(window).on('scroll', function () {
+          if ($(this).scrollTop() > 1) {
+            $('.fixed_header').addClass("sticky")
+          } else {
+            $('.fixed_header').removeClass("sticky")
+          }
+        })
 
-          // Menu sidebar panel
-          $('.open_close_menu').on("click", function () {
-            $('.main-menu').toggleClass('show')
-            $('.layer').toggleClass('layer-is-visible')
-          })
+        // Menu toggle
+        $('.open_close_menu').on("click", function () {
+          $('.main-menu').toggleClass('show')
+          $('.layer').toggleClass('layer-is-visible')
+        })
 
-          // Menu submenu
-          $('a.show-submenu').on("click", function () {
-            $(this).toggleClass("show_normal")
-          })
-          
-          console.log('Header initialized successfully')
-        } catch (error) {
-          console.error('Error initializing header:', error)
-        }
+        // Submenu toggle
+        $('a.show-submenu').on("click", function () {
+          $(this).toggleClass("show_normal")
+        })
+        
+        console.log('Header initialized')
       }
     }
 
-    setTimeout(initializeHeader, 100)
+    setTimeout(initializeHeader, 500)
   }, [location])
 
   return (
@@ -67,11 +61,11 @@ const Header = () => {
               </div>
               <nav id="mainNav">
                 <ul>
-                  <li className="submenu">
-                    <Link to="/" className="show-submenu">Home</Link>
+                  <li>
+                    <Link to="/">Home</Link>
                   </li>
-                  <li className="submenu">
-                    <Link to="/rooms" className="show-submenu">Rooms & Suites</Link>
+                  <li>
+                    <Link to="/rooms">Rooms & Suites</Link>
                   </li>
                   <li>
                     <Link to="/about">About</Link>

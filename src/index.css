@@ -1,13 +1,15 @@
-/* Global styles for React app */
+/* Reset and base styles */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 html, body {
-  margin: 0;
-  padding: 0;
   height: 100%;
   font-family: 'Montserrat', Helvetica, sans-serif;
+  background-color: #faf8f5;
+  color: #333;
 }
 
 #root {
@@ -19,38 +21,39 @@ html, body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  width: 100%;
 }
 
 main {
   flex: 1;
 }
 
-/* Loading fallback */
-.loading-fallback {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-size: 18px;
-  color: #333;
-  background-color: #faf8f5;
-}
-
-/* Ensure content is visible */
-body {
-  background-color: #faf8f5;
-  color: #333;
-}
-
-/* Basic styling in case external CSS doesn't load */
+/* Ensure content is visible even without external CSS */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 15px;
 }
 
-.btn {
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.col-lg-6, .col-md-6, .col-sm-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding: 0 15px;
+}
+
+.col-lg-12, .col-md-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+  padding: 0 15px;
+}
+
+/* Basic button styling */
+.btn, .btn_1 {
   display: inline-block;
   padding: 12px 24px;
   background-color: #feb30c;
@@ -59,13 +62,16 @@ body {
   border-radius: 4px;
   border: none;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.btn:hover {
+.btn:hover, .btn_1:hover {
   background-color: #e6a00b;
+  color: white;
+  text-decoration: none;
 }
 
-/* Header basic styling */
+/* Header fallback */
 header {
   background-color: rgba(255, 255, 255, 0.95);
   padding: 15px 0;
@@ -83,10 +89,59 @@ main {
   min-height: calc(100vh - 80px);
 }
 
-/* Footer basic styling */
+/* Footer fallback */
 footer {
   background-color: #24262d;
   color: white;
   padding: 40px 0;
   margin-top: auto;
+}
+
+/* Hero section fallback */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.hero h1, .hero h3 {
+  color: white;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Loading state */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 18px;
+  background-color: #faf8f5;
+}
+
+/* Error state */
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  padding: 20px;
+  background-color: #faf8f5;
+}
+
+.error h1 {
+  color: #e74c3c;
+  margin-bottom: 20px;
+}
+
+.error p {
+  color: #666;
+  margin-bottom: 10px;
 }

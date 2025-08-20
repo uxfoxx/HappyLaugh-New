@@ -1,28 +1,37 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react'
 
 const Preloader = () => {
   useEffect(() => {
-    // Initialize preloader functionality
-    const initializePreloader = () => {
-      if (window.jQuery) {
-        const $ = window.jQuery;
-        
-        $(window).on('load', function () {
-          $('[data-loader="circle-side"]').fadeOut();
-          $('#preloader').addClass('loaded');
-          $('.animate_hero').addClass('is-transitioned');
-        });
+    console.log('Preloader mounted')
+    
+    const timer = setTimeout(() => {
+      const preloader = document.getElementById('preloader')
+      const loader = document.querySelector('[data-loader="circle-side"]')
+      
+      if (loader) {
+        loader.style.display = 'none'
       }
-    };
+      if (preloader) {
+        preloader.classList.add('loaded')
+      }
+      
+      // Add hero animation
+      const heroElements = document.querySelectorAll('.animate_hero')
+      heroElements.forEach(el => {
+        el.classList.add('is-transitioned')
+      })
+      
+      console.log('Preloader finished')
+    }, 1000)
 
-    setTimeout(initializePreloader, 100);
-  }, []);
+    return () => clearTimeout(timer)
+  }, [])
 
   return (
     <div id="preloader">
       <div data-loader="circle-side"></div>
     </div>
-  );
-};
+  )
+}
 
-export default Preloader;
+export default Preloader

@@ -7,63 +7,58 @@ const Home = () => {
   useEffect(() => {
     console.log('Home page mounted')
     
-    // Initialize page-specific functionality
     const initializePage = () => {
-      if (typeof window.jQuery !== 'undefined') {
+      if (window.jQuery) {
         const $ = window.jQuery
-        console.log('Initializing home page with jQuery')
+        console.log('Initializing home page')
         
-        try {
-          // Initialize jarallax for this page
-          if (window.jarallax) {
-            window.jarallax(document.querySelectorAll('[data-jarallax]'))
-          }
+        // Initialize jarallax for this page
+        if (window.jarallax) {
+          window.jarallax(document.querySelectorAll('[data-jarallax]'))
+        }
 
-          // Initialize scroll animations
-          if (window.scrollCue) {
-            window.scrollCue.update()
-          }
+        // Initialize scroll animations
+        if (window.scrollCue) {
+          window.scrollCue.update()
+        }
 
-          // Initialize owl carousel for testimonials
-          if ($.fn.owlCarousel) {
-            $('.carousel_testimonials').owlCarousel({
-              items: 1,
-              loop: true,
-              autoplay: false,
-              animateIn: 'flipInX',
-              margin: 40,
-              stagePadding: 30,
-              smartSpeed: 300,
-              autoHeight: true,
-              dots: true,
-              responsiveClass: true,
-              responsive: {
-                600: { items: 1 },
-                1000: { items: 1, nav: false }
-              }
-            })
-          }
-
-          // Button scroll to
-          $('a[href^="#"].btn_scrollto').on('click', function (e) {
-            e.preventDefault()
-            var target = this.hash
-            var $target = $(target)
-            if ($target.length) {
-              $('html, body').stop().animate({
-                'scrollTop': $target.offset().top - 60
-              }, 300, 'swing')
+        // Initialize owl carousel for testimonials
+        if ($.fn.owlCarousel) {
+          $('.carousel_testimonials').owlCarousel({
+            items: 1,
+            loop: true,
+            autoplay: false,
+            animateIn: 'flipInX',
+            margin: 40,
+            stagePadding: 30,
+            smartSpeed: 300,
+            autoHeight: true,
+            dots: true,
+            responsiveClass: true,
+            responsive: {
+              600: { items: 1 },
+              1000: { items: 1, nav: false }
             }
           })
-          
-          console.log('Home page initialized successfully')
-        } catch (error) {
-          console.error('Error initializing home page:', error)
         }
+
+        // Button scroll to
+        $('a[href^="#"].btn_scrollto').on('click', function (e) {
+          e.preventDefault()
+          const target = this.hash
+          const $target = $(target)
+          if ($target.length) {
+            $('html, body').stop().animate({
+              'scrollTop': $target.offset().top - 60
+            }, 300, 'swing')
+          }
+        })
+        
+        console.log('Home page initialized')
       }
     }
 
-    setTimeout(initializePage, 300)
+    setTimeout(initializePage, 1500)
   }, [])
 
   return (

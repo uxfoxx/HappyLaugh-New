@@ -1,3 +1,5 @@
+import React from 'react'
+
 const Footer = () => {
   return (
     <footer className="revealed">
@@ -13,24 +15,24 @@ const Footer = () => {
               <li>4th Mile Post, Yahalawela, Passara Road<br />Ella, Sri Lanka</li>
               <li>
                 <strong>
-                  <a href="#0">ceylonhappylaugh.ella@gmail.com</a>
+                  <a href="mailto:ceylonhappylaugh.ella@gmail.com">ceylonhappylaugh.ella@gmail.com</a>
                 </strong>
               </li>
               <li>
                 <strong>
-                  <a href="#0">+94 76 255 8683</a>
+                  <a href="tel:+94762558683">+94 76 255 8683</a>
                 </strong>
               </li>
             </ul>
             <div className="social">
               <ul>
                 <li>
-                  <a href="https://www.instagram.com/happylaugh_ella?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
+                  <a href="https://www.instagram.com/happylaugh_ella" target="_blank" rel="noopener noreferrer">
                     <i className="bi bi-instagram"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.facebook.com/profile.php?id=61570061638818">
+                  <a href="https://www.facebook.com/profile.php?id=61570061638818" target="_blank" rel="noopener noreferrer">
                     <i className="bi bi-facebook"></i>
                   </a>
                 </li>
@@ -77,7 +79,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer
