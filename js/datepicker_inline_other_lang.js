@@ -18,7 +18,7 @@ $(function() {
       picker.data('daterangepicker').show();
       */
 
-      //Datepicker V2 embedded - https://easepick.com/
+      //Datepicker V2 embedded - - https://easepick.com/
       $(function () {
       /* Booked Dates */
       const DateTime = easepick.DateTime;
