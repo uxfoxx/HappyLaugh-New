@@ -8,7 +8,7 @@ const Header = () => {
     <header style={{
       background: 'rgba(255, 255, 255, 0.95)',
       backdropFilter: 'blur(10px)',
-      padding: '15px 0',
+      padding: '1rem 0',
       position: 'fixed',
       top: 0,
       left: 0,
@@ -20,7 +20,10 @@ const Header = () => {
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
-          alignItems: 'center'
+          alignItems: 'center',
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '0 1rem'
         }}>
           <Link to="/" style={{
             fontSize: '1.5rem',
@@ -41,8 +44,7 @@ const Header = () => {
               style={{
                 color: location.pathname === '/' ? '#feb30c' : '#24262d',
                 textDecoration: 'none',
-                fontWeight: '500',
-                transition: 'color 0.3s ease'
+                fontWeight: '500'
               }}
             >
               Home
@@ -52,8 +54,7 @@ const Header = () => {
               style={{
                 color: location.pathname === '/about' ? '#feb30c' : '#24262d',
                 textDecoration: 'none',
-                fontWeight: '500',
-                transition: 'color 0.3s ease'
+                fontWeight: '500'
               }}
             >
               About
@@ -63,19 +64,17 @@ const Header = () => {
               style={{
                 color: location.pathname === '/rooms' ? '#feb30c' : '#24262d',
                 textDecoration: 'none',
-                fontWeight: '500',
-                transition: 'color 0.3s ease'
+                fontWeight: '500'
               }}
             >
               Rooms
             </Link>
             <Link 
-              to="/contacts" 
+              to="/contact" 
               style={{
-                color: location.pathname === '/contacts' ? '#feb30c' : '#24262d',
+                color: location.pathname === '/contact' ? '#feb30c' : '#24262d',
                 textDecoration: 'none',
-                fontWeight: '500',
-                transition: 'color 0.3s ease'
+                fontWeight: '500'
               }}
             >
               Contact
@@ -84,10 +83,11 @@ const Header = () => {
               href="https://www.booking.com/hotel/lk/happy-laugh-hostel-ella12.en-gb.html" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="btn_1"
+              className="btn-primary"
               style={{
                 padding: '10px 20px',
-                fontSize: '0.9rem'
+                fontSize: '0.9rem',
+                borderRadius: '5px'
               }}
             >
               Book Now
