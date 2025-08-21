@@ -10,14 +10,17 @@
 	})
 
 	//Header Reveal On Scroll
-	$("header.reveal_header").headroom({
-	    "offset": 50,
-	    "tolerance": 5,
-	    "classes": {
-	        "initial": "animated",
-	        "pinned": "slideDown",
-	        "unpinned": "slideUp"
-	    }
+	$("header.reveal_header").each(function() {
+		var headroom = new Headroom(this, {
+			"offset": 50,
+			"tolerance": 5,
+			"classes": {
+				"initial": "animated",
+				"pinned": "slideDown",
+				"unpinned": "slideUp"
+			}
+		});
+		headroom.init();
 	});
 
 	// Sticky Header
