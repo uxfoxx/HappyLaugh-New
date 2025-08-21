@@ -1,102 +1,76 @@
-import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
-  const location = useLocation()
+  const location = useLocation();
+
+  useEffect(() => {
+    // Initialize header functionality after component mounts
+    const initializeHeader = () => {
+      if (window.jQuery) {
+        const $ = window.jQuery;
+        
+        // Header reveal on scroll (from original)
+        if (window.Headroom && $("header.reveal_header").length) {
+          $("header.reveal_header").headroom({
+            "offset": 50,
+            "tolerance": 5,
+            "classes": {
+              "initial": "animated",
+              "pinned": "slideDown",
+              "unpinned": "slideUp"
+            }
+          });
+        }
+
+        // Sticky header (from original)
+        $(window).on('scroll', function () {
+          if ($(this).scrollTop() > 1) {
+            $('.fixed_header').addClass("sticky");
+          } else {
+            $('.fixed_header').removeClass("sticky");
+          }
+        });
+        $(window).scroll();
+      }
+    };
+
+    setTimeout(initializeHeader, 100);
+  }, []);
 
   return (
-    <header style={{
-      background: 'rgba(255, 255, 255, 0.95)',
-      backdropFilter: 'blur(10px)',
-      padding: '1rem 0',
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      zIndex: 1000,
-      boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
-    }}>
+    <header className="fixed_header reveal_header">
       <div className="container">
-        <div style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '0 1rem'
-        }}>
-          <Link to="/" style={{
-            fontSize: '1.5rem',
-            fontWeight: '700',
-            color: '#24262d',
-            textDecoration: 'none'
-          }}>
-            Ceylon Happy Laugh
-          </Link>
-          
-          <nav style={{
-            display: 'flex',
-            gap: '2rem',
-            alignItems: 'center'
-          }}>
-            <Link 
-              to="/" 
-              style={{
-                color: location.pathname === '/' ? '#feb30c' : '#24262d',
-                textDecoration: 'none',
-                fontWeight: '500'
-              }}
-            >
-              Home
-            </Link>
-            <Link 
-              to="/about" 
-              style={{
-                color: location.pathname === '/about' ? '#feb30c' : '#24262d',
-                textDecoration: 'none',
-                fontWeight: '500'
-              }}
-            >
-              About
-            </Link>
-            <Link 
-              to="/rooms" 
-              style={{
-                color: location.pathname === '/rooms' ? '#feb30c' : '#24262d',
-                textDecoration: 'none',
-                fontWeight: '500'
-              }}
-            >
-              Rooms
-            </Link>
-            <Link 
-              to="/contact" 
-              style={{
-                color: location.pathname === '/contact' ? '#feb30c' : '#24262d',
-                textDecoration: 'none',
-                fontWeight: '500'
-              }}
-            >
-              Contact
-            </Link>
-            <a 
-              href="https://www.booking.com/hotel/lk/happy-laugh-hostel-ella12.en-gb.html" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="btn-primary"
-              style={{
-                padding: '10px 20px',
-                fontSize: '0.9rem',
-                borderRadius: '5px'
-              }}
-            >
-              Book Now
-            </a>
-          </nav>
+        <div className="row">
+          <div className="col-md-12">
+            <div className="main_nav">
+              <div id="logo">
+                <Link to="/">
+                  <img src="img/logo_sticky.png" width="165" height="35" alt="" className="logo_sticky" />
+                  <img src="img/logo.png" width="165" height="35" alt="" className="logo_normal" />
+                </Link>
+              </div>
+              <nav id="menu">
+                <ul>
+                  <li><Link to="/" className={location.pathname === '/' ? 'active' : ''}>Home</Link></li>
+                  <li><Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>About</Link></li>
+                  <li><Link to="/rooms" className={location.pathname === '/rooms' ? 'active' : ''}>Rooms</Link></li>
+                  <li><Link to="/contacts" className={location.pathname === '/contacts' ? 'active' : ''}>Contacts</Link></li>
+                </ul>
+              </nav>
+              <div className="hamburger_2 open_close_menu">
+                <div className="hamburger hamburger--spin" id="hamburger">
+                  <div className="hamburger-box">
+                    <div className="hamburger-inner"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
