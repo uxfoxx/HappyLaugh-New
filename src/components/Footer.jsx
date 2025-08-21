@@ -1,18 +1,52 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const Footer = () => {
+  useEffect(() => {
+    // Initialize footer functionality
+    const initializeFooter = () => {
+      if (window.jQuery) {
+        const $ = window.jQuery;
+        
+        console.log('Initializing footer...');
+        
+        // Footer reveal effect
+        if ($(window).width() >= 1024 && $.fn.footerReveal) {
+          $('footer.revealed').footerReveal({
+            shadow: false,
+            opacity: 0.6,
+            zIndex: 1
+          });
+          console.log('Footer reveal initialized');
+        }
+
+        // Links hover effect
+        $(".footer_links > ul > li").hover(function() {
+          $(this).siblings().stop().fadeTo(300, 0.6);
+          $(this).parent().siblings().stop().fadeTo(300, 0.3); 
+        }, function() {
+          $(this).siblings().stop().fadeTo(300, 1);
+          $(this).parent().siblings().stop().fadeTo(300, 1);
+        });
+
+        console.log('Footer initialization complete');
+      }
+    };
+
+    setTimeout(initializeFooter, 1000);
+  }, []);
+
   return (
     <footer className="revealed">
       <div className="container">
         <div className="row">
           <div className="col-lg-4 col-md-12">
             <h3 data-bs-target="#collapse_1">Quick Links</h3>
-            <div className="collapse dont-collapse-sm links" id="collapse_1">
+            <div className="collapse dont-collapse-sm links footer_links" id="collapse_1">
               <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
                 <li><a href="/rooms">Rooms</a></li>
-                <li><a href="/contacts">Contacts</a></li>
+                <li><a href="/contact">Contacts</a></li>
               </ul>
             </div>
           </div>
@@ -42,7 +76,7 @@ const Footer = () => {
         <div className="row add_bottom_25">
           <div className="col-lg-6">
             <ul className="footer-selector clearfix">
-              <li><img src="img/logo.png" width="165" height="35" alt="" /></li>
+              <li><img src="/img/logo.png" width="165" height="35" alt="" /></li>
             </ul>
           </div>
           <div className="col-lg-6">

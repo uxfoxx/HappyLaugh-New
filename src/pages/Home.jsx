@@ -3,14 +3,17 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
   useEffect(() => {
-    // Initialize page-specific functionality
+    // Initialize all jQuery plugins and functionality
     const initializePage = () => {
       if (window.jQuery) {
         const $ = window.jQuery;
         
+        console.log('Initializing Home page...');
+        
         // Initialize jarallax
         if (window.jarallax) {
           window.jarallax(document.querySelectorAll('[data-jarallax]'));
+          console.log('Jarallax initialized');
         }
 
         // Initialize scroll animations
@@ -18,22 +21,8 @@ const Home = () => {
           window.scrollCue.init({
             percentage: 0.85
           });
+          console.log('ScrollCue initialized');
         }
-
-        // Initialize owl carousels
-        $('.carousel_item_centered').owlCarousel({    
-          loop: true,
-          margin: 5,
-          nav: true,
-          dots: false,
-          center: true,
-          navText: ["<i class='bi bi-arrow-left-short'></i>","<i class='bi bi-arrow-right-short'></i>"],
-          responsive: {
-            0: { items: 1 },
-            600: { items: 2 },
-            1000: { items: 2 }
-          }
-        });
 
         // Opacity mask
         $('.opacity-mask').each(function(){
@@ -44,17 +33,43 @@ const Home = () => {
         $('.background-image').each(function(){
           $(this).css('background-image', $(this).attr('data-background'));
         });
+
+        // Initialize owl carousels
+        if ($.fn.owlCarousel) {
+          $('.carousel_item_centered').owlCarousel({    
+            loop: true,
+            margin: 5,
+            nav: true,
+            dots: false,
+            center: true,
+            navText: ["<i class='bi bi-arrow-left-short'></i>","<i class='bi bi-arrow-right-short'></i>"],
+            responsive: {
+              0: { items: 1 },
+              600: { items: 2 },
+              1000: { items: 2 }
+            }
+          });
+          console.log('Owl Carousel initialized');
+        }
+
+        // Add hero animation
+        setTimeout(() => {
+          $('.animate_hero').addClass('is-transitioned');
+        }, 500);
+
+        console.log('Home page initialization complete');
       }
     };
 
-    setTimeout(initializePage, 100);
+    // Wait for all scripts to load
+    setTimeout(initializePage, 1000);
   }, []);
 
   return (
     <main>
       {/* Hero Section */}
       <div className="hero full-height jarallax" data-jarallax data-speed="0.2">
-        <img className="jarallax-img kenburns" src="img/hero_home_1.jpg" alt="" />
+        <img className="jarallax-img kenburns" src="/img/hero_home_1.jpg" alt="" />
         <div className="wrapper opacity-mask d-flex align-items-center text-center animate_hero" data-opacity-mask="rgba(0, 0, 0, 0.5)">
           <div className="container">
             <div className="row justify-content-center">
@@ -64,7 +79,7 @@ const Home = () => {
                 <p className="slide-animated three">Experience the magic of Sri Lanka's hill country</p>
                 <div className="slide-animated four">
                   <Link to="/rooms" className="btn_1 me-2">Explore Rooms</Link>
-                  <a href="https://www.booking.com/hotel/lk/happy-laugh-hostel-ella12.en-gb.html" className="btn_1 outline">Book Now</a>
+                  <a href="https://www.booking.com/hotel/lk/happy-laugh-hostel-ella12.en-gb.html" className="btn_1 outline" target="_blank" rel="noopener noreferrer">Book Now</a>
                 </div>
               </div>
             </div>
@@ -93,7 +108,7 @@ const Home = () => {
             <div className="col-lg-6" data-cue="slideInUp" data-delay="200">
               <div className="pinned-image rounded_container pinned-image--medium">
                 <div className="pinned-image__container">
-                  <img src="img/home_1.jpg" alt="" />
+                  <img src="/img/home_1.jpg" alt="" />
                 </div>
               </div>
             </div>
@@ -117,7 +132,7 @@ const Home = () => {
             <div className="col-lg-6 col-md-6">
               <div className="box_feat">
                 <div className="wrapper">
-                  <img src="img/rooms/1.jpg" alt="" className="img-fluid" />
+                  <img src="/img/rooms/1.jpg" alt="" className="img-fluid" />
                   <div className="content">
                     <h3>Deluxe Double Room</h3>
                     <p>Perfect for couples or two travelers, featuring comfortable bedding and stunning nature views.</p>
@@ -130,7 +145,7 @@ const Home = () => {
             <div className="col-lg-6 col-md-6">
               <div className="box_feat">
                 <div className="wrapper">
-                  <img src="img/rooms/2_b.jpg" alt="" className="img-fluid" />
+                  <img src="/img/rooms/2_b.jpg" alt="" className="img-fluid" />
                   <div className="content">
                     <h3>Deluxe Family Room</h3>
                     <p>Spacious accommodation ideal for families or small groups seeking comfort and convenience.</p>
@@ -195,7 +210,7 @@ const Home = () => {
       </div>
 
       {/* Contact CTA Section */}
-      <div className="call_section lazy" data-bg="url(img/home_2.jpg)">
+      <div className="call_section lazy" style={{backgroundImage: 'url(/img/home_2.jpg)'}}>
         <div className="wrapper opacity-mask d-flex align-items-center justify-content-center text-center" data-opacity-mask="rgba(0, 0, 0, 0.5)">
           <div className="container">
             <div className="row justify-content-center" data-cue="slideInUp">
@@ -205,7 +220,7 @@ const Home = () => {
                 <div className="phone_element">
                   <a href="tel:+94762558683"><i className="bi bi-telephone"></i><span>+94 76 255 8683</span></a>
                 </div>
-                <Link to="/contacts" className="btn_1 mt-3">Get in Touch</Link>
+                <Link to="/contact" className="btn_1 mt-3">Get in Touch</Link>
               </div>
             </div>
           </div>

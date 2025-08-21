@@ -1,4 +1,8 @@
-/* Remove all custom styles - let the original CSS handle everything */
+/* Reset to ensure no conflicts */
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -8,7 +12,4 @@ body {
   min-height: 100vh;
 }
 
-/* Ensure React doesn't interfere with original styles */
-* {
-  box-sizing: border-box;
-}
+/* Let the original CSS files handle everything else */

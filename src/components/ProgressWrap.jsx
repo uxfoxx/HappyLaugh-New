@@ -1,53 +1,53 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 
 const ProgressWrap = () => {
   useEffect(() => {
-    console.log('ProgressWrap mounted')
+    console.log('ProgressWrap mounted');
     
     const initializeProgressWrap = () => {
       if (window.jQuery) {
-        const $ = window.jQuery
+        const $ = window.jQuery;
         
-        const progressPath = document.querySelector('.progress-wrap path')
+        const progressPath = document.querySelector('.progress-wrap path');
         if (progressPath) {
-          const pathLength = progressPath.getTotalLength()
-          progressPath.style.transition = 'none'
-          progressPath.style.strokeDasharray = pathLength + ' ' + pathLength
-          progressPath.style.strokeDashoffset = pathLength
-          progressPath.getBoundingClientRect()
-          progressPath.style.transition = 'stroke-dashoffset 10ms linear'
+          const pathLength = progressPath.getTotalLength();
+          progressPath.style.transition = 'none';
+          progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+          progressPath.style.strokeDashoffset = pathLength;
+          progressPath.getBoundingClientRect();
+          progressPath.style.transition = 'stroke-dashoffset 10ms linear';
           
           const updateProgress = function() {
-            const scroll = $(window).scrollTop()
-            const height = $(document).height() - $(window).height()
-            const progress = pathLength - (scroll * pathLength / height)
-            progressPath.style.strokeDashoffset = progress
-          }
+            const scroll = $(window).scrollTop();
+            const height = $(document).height() - $(window).height();
+            const progress = pathLength - (scroll * pathLength / height);
+            progressPath.style.strokeDashoffset = progress;
+          };
           
-          updateProgress()
-          $(window).scroll(updateProgress)
+          updateProgress();
+          $(window).scroll(updateProgress);
           
           $(window).on('scroll', function() {
             if ($(this).scrollTop() > 50) {
-              $('.progress-wrap').addClass('active-progress')
+              $('.progress-wrap').addClass('active-progress');
             } else {
-              $('.progress-wrap').removeClass('active-progress')
+              $('.progress-wrap').removeClass('active-progress');
             }
-          })
+          });
           
           $('.progress-wrap').on('click', function(event) {
-            event.preventDefault()
-            $('html, body').animate({ scrollTop: 0 }, 550)
-            return false
-          })
+            event.preventDefault();
+            $('html, body').animate({ scrollTop: 0 }, 550);
+            return false;
+          });
           
-          console.log('ProgressWrap initialized')
+          console.log('ProgressWrap initialized');
         }
       }
-    }
+    };
 
-    setTimeout(initializeProgressWrap, 1000)
-  }, [])
+    setTimeout(initializeProgressWrap, 2000);
+  }, []);
 
   return (
     <div className="progress-wrap">
@@ -55,7 +55,7 @@ const ProgressWrap = () => {
         <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
       </svg>
     </div>
-  )
-}
+  );
+};
 
-export default ProgressWrap
+export default ProgressWrap;
